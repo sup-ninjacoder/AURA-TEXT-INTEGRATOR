@@ -16,7 +16,7 @@
     "http://localhost:5000/*"
   ],
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "ui/index.html",
     "default_icon": {
       "16": "icons/icon16.png",
       "48": "icons/icon48.png",
@@ -43,7 +43,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["index.html", "content.js", "content.css"],
+      "resources": ["index.html", "content.js", "content.css", "ui/*"],
       "matches": ["<all_urls>"]
     }
   ],

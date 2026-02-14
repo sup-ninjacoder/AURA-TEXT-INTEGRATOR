@@ -505,13 +505,41 @@
           if (reply && input.textContent.trim() === currentDraft) {
             insertIntoWhatsApp(reply);
           }
-        } catch {}
+        } catch { }
       }, AUTO_SUGGEST_DEBOUNCE_MS);
     });
   }
 
   const observer = new MutationObserver(setupAutoSuggest);
   observer.observe(document.body, { childList: true, subtree: true });
+
+  /* ---------------- Popup ↔ Content Script Messaging ---------------- */
+
+  chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
+    if (request.action === "getChatContext") {
+      const ctx = getConversationContext();
+      sendResponse({
+        contactName: ctx?.contactName || null,
+        conversationContext: ctx?.messages || [],
+        detectedTone: ctx ? detectTone(ctx.messages) : null,
+        drynessScore: ctx ? calculateDryness(ctx.messages) : null,
+      });
+      return true;
+    }
+
+    if (request.action === "getDraft") {
+      const input = getActiveChatInput();
+      sendResponse({ draft: input ? (input.textContent || input.innerText || "") : "" });
+      return true;
+    }
+
+    if (request.action === "insert") {
+      const message = request.message || "";
+      insertIntoWhatsApp(message);
+      sendResponse({ ok: true });
+      return true;
+    }
+  });
 
   console.log("🧠 Aura extension loaded successfully!");
 })();

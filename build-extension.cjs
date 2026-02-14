@@ -43,21 +43,21 @@ if (!fs.existsSync(iconsDir)) {
 const createPngIcon = (size) => {
   const canvas = createCanvas(size, size);
   const ctx = canvas.getContext('2d');
-  
+
   // Purple gradient background
   const gradient = ctx.createLinearGradient(0, 0, size, size);
   gradient.addColorStop(0, '#6366f1');
   gradient.addColorStop(1, '#8b5cf6');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
-  
+
   // Simple "A" letter
   ctx.fillStyle = 'white';
   ctx.font = `bold ${size * 0.6}px sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('A', size / 2, size / 2);
-  
+
   return canvas.toBuffer('image/png');
 };
 
@@ -66,13 +66,29 @@ fs.writeFileSync(path.join(iconsDir, 'icon48.png'), createPngIcon(48));
 fs.writeFileSync(path.join(iconsDir, 'icon128.png'), createPngIcon(128));
 console.log('✓ Created icon files (16px, 48px, 128px)');
 
-// Check if Vite built the popup HTML
-const popupHtml = path.join(distDir, 'index.html');
+// Copy ui/ folder to dist/ui/
+const uiSrcDir = path.join(__dirname, 'ui');
+const uiDistDir = path.join(distDir, 'ui');
+if (!fs.existsSync(uiDistDir)) {
+  fs.mkdirSync(uiDistDir, { recursive: true });
+}
+const uiFiles = ['index.html', 'popup.js'];
+for (const f of uiFiles) {
+  const src = path.join(uiSrcDir, f);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, path.join(uiDistDir, f));
+    console.log(`✓ Copied ui/${f}`);
+  } else {
+    console.log(`⚠ Warning: ui/${f} not found`);
+  }
+}
+
+// Check if popup HTML exists
+const popupHtml = path.join(uiDistDir, 'index.html');
 if (fs.existsSync(popupHtml)) {
-  console.log('✓ Popup HTML found (built by Vite)');
+  console.log('✓ Popup HTML found at dist/ui/index.html');
 } else {
-  console.log('⚠ Warning: index.html not found in dist/');
-  console.log('  Make sure to run "npm run build" first');
+  console.log('⚠ Warning: ui/index.html not found in dist/ui/');
 }
 
 console.log('\n✅ Extension build complete!\n');
