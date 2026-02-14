@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Demo - How It Works</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #a0a0b0;
+            font-size: 1.1rem;
+        }
+
+        .demo-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .demo-section h2 {
+            color: #8b5cf6;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+        }
+
+        .demo-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .demo-label {
+            font-size: 0.85rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .raw-input {
+            background: #0f0f1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 12px;
+            color: #e0e0e0;
+            font-size: 14px;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+
+        .output {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 8px;
+            padding: 16px;
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .why {
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #a0a0b0;
+        }
+
+        .vibe-slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #6366f1, #8b5cf6, #a855f7);
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 12px 0;
+        }
+
+        .vibe-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .interest-tag {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 4px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+        }
+
+        .revive-card {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .install-section {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 32px;
+        }
+
+        .install-section h2 {
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .install-section p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .install-btn {
+            background: white;
+            color: #6366f1;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .install-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-box {
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #8b5cf6;
+        }
+
+        .stat-label {
+            color: #a0a0b0;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .feature-item h3 {
+            color: #8b5cf6;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            color: #a0a0b0;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .demo-section {
+                padding: 16px;
+            }
+
+            .install-section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">A</div>
+            <h1>Aura</h1>
+            <p class="subtitle">The Cognitive Bridge for Authentic Connection</p>
+        </header>
+
+        <!-- Problem Section -->
+        <div class="demo-section">
+            <h2>🎯 The Problem</h2>
+            <p style="margin-bottom: 16px; color: #a0a0b0;">
+                Modern dating has a "Digital Bottleneck." Introverts have deep, meaningful personalities, 
+                but struggle with the "Initial Friction" - the first 10 messages where small talk feels like a performance.
+            </p>
+            <div class="stat-box">
+                <div class="stat-number">65%</div>
+                <div class="stat-label">of introverts report "texting anxiety" leads them to ghost potential partners</div>
+            </div>
+        </div>
+
+        <!-- Intent-Based Drafting Demo -->
+        <div class="demo-section">
+            <h2>📝 Intent-Based Drafting</h2>
+            <p style="margin-bottom: 16px; color: #a0a0b0;">
+                Instead of the AI writing for you, you provide a "Raw Thought" and Aura transforms it.
+            </p>
+            
+            <div class="demo-card">
+                <div class="demo-label">Your Raw Thought</div>
+                <div class="raw-input">"i like her shoes but dont want to be a creep"</div>
+                
+                <div class="demo-label">Vibe: Icebreaker (0-33)</div>
+                <div class="vibe-labels">
+                    <span>Icebreaker</span>
+                    <span>Deep-Dive</span>
+                    <span>The Close</span>
+                </div>
+                <input type="range" class="vibe-slider" min="0" max="100" value="25" disabled>
+                
+                <div class="demo-label" style="margin-top: 16px;">Aura's Output</div>
+                <div class="output">
+                    "Those boots in your profile picture are killer—very 90s grunge. Where'd you find them?"
+                </div>
+                
+                <div class="why">
+                    <strong>Why this works:</strong> Open-ended questions increase response rates by 40%. 
+                    We kept it light to reduce pressure while showing genuine interest in her profile.
+                </div>
+            </div>
+        </div>
+
+        <!-- Interest-Sync Demo -->
+        <div class="demo-section">
+            <h2>🔗 Interest-Sync Engine</h2>
+            <p style="margin-bottom: 16px; color: #a0a0b0;">
+                Aura scans your pre-filled interests and looks for "Hook Points" in the conversation.
+            </p>
+            
+            <div class="demo-card">
+                <div class="demo-label">Your Interests (stored in popup)</div>
+                <div class="interests">
+                    <span class="interest-tag">Radiohead</span>
+                    <span class="interest-tag">Sci-Fi</span>
+                    <span class="interest-tag">Dark Souls</span>
+                    <span class="interest-tag">Coffee</span>
+                    <span class="interest-tag">Hiking</span>
+                    <span class="interest-tag">Indie Films</span>
+                </div>
+                
+                <div class="demo-label" style="margin-top: 16px;">Detected in Chat</div>
+                <div class="interests">
+                    <span class="interest-tag">🔗 music</span>
+                    <span class="interest-tag">🔗 coffee</span>
+                </div>
+                
+                <div class="demo-label" style="margin-top: 16px;">Aura's Suggestion</div>
+                <div class="output">
+                    "Hey, you both like Radiohead! Mention the OK Computer anniversary."
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Calibration Demo -->
+        <div class="demo-section">
+            <h2>🎚️ Social Calibration Toggle</h2>
+            <p style="margin-bottom: 16px; color: #a0a0b0;">
+                Adjust the vibe based on the stage of the relationship.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Icebreaker (0-33)</h3>
+                    <p>High energy, curious, low pressure. Perfect for first messages.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Deep-Dive (34-66)</h3>
+                    <p>Philosophical, slower-paced, empathetic. Build rapport and connection.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>The Close (67-100)</h3>
+                    <p>Direct, confident, call to action. Ask for the date.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Revival Demo -->
+        <div class="demo-section">
+            <h2>🔥 Revive Dead Chats</h2>
+            <p style="margin-bottom: 16px; color: #a0a0b0;">
+                Detects stalled conversations and suggests strategies to re-engage.
+            </p>
+            
+            <div class="demo-card revive-card">
+                <div class="demo-label">Chat Status: Stalled (3 one-word replies)</div>
+                
+                <div class="demo-label" style="margin-top: 16px;">Aura's Revival Strategy</div>
+                <div class="output">
+                    <strong>Bold Pivot:</strong> "Hey! I was just listening to Radiohead and it made me think of our conversation. How have you been?"
+                </div>
+                
+                <div class="why">
+                    <strong>Why this works:</strong> Changing the subject with a personal connection shows you're thinking about them and creates a fresh start without pressure.
+                </div>
+            </div>
+        </div>
+
+        <!-- Why This Wins -->
+        <div class="demo-section">
+            <h2>✨ Why This Wins</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Not a Mask, a Megaphone</h3>
+                    <p>Takes your actual personality and removes the "stutter" of digital anxiety.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Ghosting Prevention</h3>
+                    <p>Identifies stalled conversations and suggests re-engagement strategies.</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Educational Value</h3>
+                    <p>"Why?" tooltips explain the psychology behind each suggestion.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Install Section -->
+        <div class="install-section">
+            <h2>Ready to Bridge the Silence?</h2>
+            <p>Install Aura and never let a great personality get stuck behind a "Hey" that never got sent.</p>
+            <button class="install-btn" onclick="window.location.href='INSTALL.md'">
+                View Installation Guide
+            </button>
+        </div>
+
+        <!-- Supported Platforms -->
+        <div class="demo-section">
+            <h2>📱 Supported Platforms</h2>
+            <div class="interests" style="justify-content: center;">
+                <span class="interest-tag">WhatsApp Web</span>
+                <span class="interest-tag">Instagram DMs</span>
+                <span class="interest-tag">Tinder</span>
+                <span class="interest-tag">Bumble</span>
+                <span class="interest-tag">Hinge</span>
+                <span class="interest-tag">OKCupid</span>
+                <span class="interest-tag">POF</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
