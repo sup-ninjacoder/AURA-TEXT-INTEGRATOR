@@ -1,5 +1,5 @@
 // ui/popup.js — Aura popup ↔ backend + content-script messaging
-const BACKEND = "http://localhost:5000";
+const BACKEND = "http://127.0.0.1:5000";
 
 /* ---- Helpers ---- */
 

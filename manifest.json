@@ -3,7 +3,10 @@
   "name": "Aura - The Cognitive Bridge",
   "version": "1.0.0",
   "description": "AI-powered communication overlay that translates your raw intent into socially calibrated expression",
-  "permissions": ["storage", "activeTab"],
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
   "host_permissions": [
     "https://web.whatsapp.com/*",
     "https://www.instagram.com/*",
@@ -13,7 +16,8 @@
     "https://*.hinge.co/*",
     "https://*.okcupid.com/*",
     "https://*.pof.com/*",
-    "http://localhost:5000/*"
+    "http://localhost:5000/*",
+    "http://127.0.0.1:5000/*"
   ],
   "action": {
     "default_popup": "ui/index.html",
@@ -35,16 +39,27 @@
         "https://*.okcupid.com/*",
         "https://*.pof.com/*"
       ],
-      "js": ["content.js"],
-      "css": ["content.css"],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
       "run_at": "document_idle",
       "all_frames": true
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["index.html", "content.js", "content.css", "ui/*"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "index.html",
+        "content.js",
+        "content.css",
+        "ui/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
   "icons": {

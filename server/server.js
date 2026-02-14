@@ -3,7 +3,7 @@ const express = require("express");
 const OpenAI = require("openai");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 app.use(express.json());
 
@@ -230,7 +230,7 @@ function parseStructuredOutput(raw) {
   if (jsonMatch) {
     try {
       return JSON.parse(jsonMatch[0]);
-    } catch (_) {}
+    } catch (_) { }
   }
   return null;
 }
@@ -578,8 +578,8 @@ app.get("/health", (req, res) => {
   res.json({ ok: true, service: "aura-generate" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Aura backend running at http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Aura backend running at http://127.0.0.1:${PORT}`);
   console.log(
     "POST /generate ready. GROQ_API_KEY is loaded from .env (never sent to client)."
   );
